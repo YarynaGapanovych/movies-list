@@ -1,0 +1,40 @@
+body {
+    // position: relative;
+}
+
+
+
+.window {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    width: 45%;
+    padding: 20px;
+    margin: 180px 27.5%;
+    z-index: 10;
+}
+
+.reviews {
+
+    &__title{
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    &__overview {
+        font-size: 14px;
+    }
+
+    &__close{
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        font-size: 35px;
+        padding-right: 8px;
+        background: transparent;
+    }
+}

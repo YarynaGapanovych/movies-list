@@ -1,0 +1,78 @@
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+
+}
+
+.movie {
+    margin: 50px 10px;
+    position: relative;
+    border: solid #000 8px;
+    border-radius: 10px;
+    background: url('../images/roll.png') no-repeat center;
+    transition: .3s;
+    
+    &::before {
+      content: '';
+      background: url(../images/roll.png) no-repeat;
+      width: 109%;
+      height: 100%;
+      background-size: 100%;
+      position: absolute;
+      z-index: 2;
+      top: -85px;
+      left: -8px;
+    }
+
+    &__poster {
+      vertical-align: middle;
+    }
+
+    &__title {
+      font-weight: 500;
+      padding: 3px 5px;
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      bottom: 0;
+      background: #d3d3d3cb;
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    &__info {
+        display: none;
+        font-size: 12px;
+
+        b {
+          font-weight: 500;
+        }
+    }
+
+  &:hover{
+    cursor: pointer;
+
+    .movie__title{
+      top: 0;
+      background: transparent;
+      padding: 10px;
+    }
+
+    .movie__info{
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 10px;
+      padding-top: 45px;
+    }
+  }
+}

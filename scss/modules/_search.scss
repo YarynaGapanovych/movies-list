@@ -1,0 +1,19 @@
+.search {
+  margin-top: 40px;
+
+  &__field {
+    background: inherit;
+    border-bottom: 2px #000 solid;
+    
+  }
+
+  &__btn {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: inherit;
+    border: none;
+    cursor: pointer;
+  }
+}
+
