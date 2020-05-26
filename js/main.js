@@ -17,14 +17,8 @@ $(document).ready(function () {
   })
 
   $('.search__field').keypress((e) => {
-
     if (e.keyCode === 13) {
-      let query = $('.search__field').val()
-      if (query == '') {
-        alert('You haven`t enter name of your movie')
-      } else {
-        getMovie()
-      }
+      getMovie()
     }
   })
 
