@@ -17,13 +17,18 @@ $(document).ready(function () {
   })
 
   $('.search__field').keypress((e) => {
+    let query = $('.search__field').val()
     if (e.keyCode === 13) {
-      getMovie()
+      if (query == '') {
+        alert('You haven`t enter name of your movie')
+      } else {
+        getMovie()
+      }
     }
   })
 
   // functions
-  function getMovie() {
+  async function getMovie() {
     let query = $('.search__field').val()
 
     $('body').addClass('loading')
@@ -31,27 +36,66 @@ $(document).ready(function () {
     if (query !== '') {
       $('.movie').remove()
 
-      $.ajax({
-        url: `${API_URL}/search/movie`,
-        type: 'GET',
-        dataType: 'json',
-        data: {
-          api_key: API_KEY,
-          query: query
-        }
-      }).then((res) => {
+      let url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${query}`
+      try {
+        let response = await fetch(url)
+        let res = await response.json()
+
         if (res.results.length === 0) {
           alert('No movies found')
         } else {
           res.results.forEach((movie) => {
             if (movie.poster_path !== null)
+              // let clickedMovie = movieDOM.find('.movie')
+              // 
               $('.movies').append(drowMovie(movie))
           })
         }
         $('body').removeClass('loading')
-      })
-    }
+      } catch (e) {
+        alert('Error')
+      }
 
+
+      // fetch(url)
+      //   .then(data => data.json()
+      //     .then(res => {
+      //       if (res.results.length === 0) {
+      //         alert('No movies found')
+      //       } else {
+      //         res.results.forEach((movie) => {
+      //           if (movie.poster_path !== null)
+      //             // let clickedMovie = movieDOM.find('.movie__info')
+      //             // 
+      //             $('.movies').append(drowMovie(movie))
+      //         })
+      //       }
+      //       $('body').removeClass('loading')
+      //     }))
+
+      // $.ajax({
+      //   url: `${API_URL}/search/movie`,
+      //   type: 'GET',
+      //   dataType: 'json',
+      //   data: {
+      //     api_key: API_KEY,
+      //     query: query
+      //   }
+      // }).then((res) => {
+      //   if (res.results.length === 0) {
+      //     alert('No movies found')
+      //   } else {
+      //     res.results.forEach((movie) => {
+      //       if (movie.poster_path !== null)
+      //         // let clickedMovie = movieDOM.find('.movie__info')
+      //         // 
+      //         $('.movies').append(drowMovie(movie))
+      //     })
+      //   }
+      //   $('body').removeClass('loading')
+      // }).catch((e) => console.log(e))
+
+    }
   }
 
   function drowMovie(movie) {
@@ -75,7 +119,7 @@ $(document).ready(function () {
   function getReviews(id, title, overview) {
 
     $.ajax({
-      url: `${API_URL}/movie/${id}`,
+      url: `${API_URL}/movie/${id}/reviews`,
       type: 'GET',
       dataType: 'json',
       data: {
