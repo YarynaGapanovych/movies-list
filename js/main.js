@@ -47,8 +47,13 @@ $(document).ready(function () {
           res.results.forEach((movie) => {
             if (movie.poster_path !== null)
               // let clickedMovie = movieDOM.find('.movie')
-              // 
               $('.movies').append(drowMovie(movie))
+            // let clickedMovie = $('.movies').find(`.${movie.id}`)
+            // clickedMovie.click(() => {
+            //   getReviews(movie.id, movie.title, movie.overview)
+            //   console.log('hey')
+            // })
+            // 
           })
         }
         $('body').removeClass('loading')
@@ -112,20 +117,19 @@ $(document).ready(function () {
 
     clickedMovie.click(() => {
       getReviews(movie.id, movie.title, movie.overview)
-      // console.log('hey')
+      console.log('hey')
     })
     return movieDOM
   }
-  function getReviews(id, title, overview) {
+  async function getReviews(id, title, overview) {
 
-    $.ajax({
-      url: `${API_URL}/movie/${id}/reviews`,
-      type: 'GET',
-      dataType: 'json',
-      data: {
-        api_key: API_KEY,
-      }
-    })
+    let url2 = `${API_URL}/movie/${id}/reviews?api_key=${API_KEY}`
+    try {
+      let response = await fetch(url2)
+      let res = await response.json()
+    } catch (e) {
+      alert('Error')
+    }
 
     $('.window').css('display', 'block')
     $('.reviews__title').text(`${title}`)
@@ -134,7 +138,17 @@ $(document).ready(function () {
     $('.reviews__close').click(() => {
       $('.window').css('display', 'none')
     })
+
+    // $.ajax({
+    //   url: `${API_URL}/movie/${id}/reviews`,
+    //   type: 'GET',
+    //   dataType: 'json',
+    //   data: {
+    //     api_key: API_KEY,
+    //   }
+    // })
   }
+
 
 
 
